@@ -3,6 +3,7 @@ const cors = require('cors')
 const joi = require('@hapi/joi')
 const userRouter = require('./router/user')
 const userInfoRouter = require('./router/userInfo')
+const artCate = require('./router/artcate')
 const app = express()
 const expressJwt = require('express-jwt')
 const config = require('./config/config')
@@ -30,7 +31,8 @@ app.use(expressJwt({
     path: ['/apiBlog/reguser', '/apiBlog/login','/apiBlog/getEmailCode']
 }))
 app.use('/apiBlog', userRouter)
-app.use('/apiBlog/my',userInfoRouter)
+app.use('/my',userInfoRouter)
+app.use('/my/article',artCate)
 // 错误级别中间件
 app.use((err, req, res, next) => {
     if (err instanceof joi.ValidationError) return res.cc(err)
